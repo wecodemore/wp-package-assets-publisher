@@ -1,5 +1,9 @@
 # WP Package Assets Publisher
 
+[![PHP Quality Assurance](https://github.com/wecodemore/wp-package-assets-publisher/actions/workflows/php-qa.yml/badge.svg)](https://github.com/wecodemore/wp-package-assets-publisher/actions/workflows/php-qa.yml)
+
+---
+
 ## What is this
 
 A Composer plugin that "publishes" assets for packages where WordPress can find them.
