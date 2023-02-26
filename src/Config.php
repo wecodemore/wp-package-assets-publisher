@@ -185,7 +185,9 @@ class Config
             $source[self::KEY_PATHS] = [$source[self::KEY_PATHS]];
             $isObject = true;
         }
-        $paths = $isObject ? $source[self::KEY_PATHS] : (array_is_list($source) ? $source : []);
+        $paths = $isObject
+            ? $source[self::KEY_PATHS]
+            : ($this->arrayIsList($source) ? $source : []);
 
         $normalized = [];
         foreach ($paths as $path) {
@@ -223,5 +225,24 @@ class Config
         }
 
         return [$isStrict, $isSymlink];
+    }
+
+    /**
+     * @param array $array
+     * @return bool
+     *
+     * @psalm-assert-if-true list $array
+     */
+    private function arrayIsList(array $array): bool
+    {
+        static $exists;
+        if (!isset($exists)) {
+            $exists = function_exists('array_is_list');
+        }
+        if ($exists) {
+            return array_is_list($array);
+        }
+
+        return strpos((string)@json_encode($array), '[') === 0;
     }
 }
