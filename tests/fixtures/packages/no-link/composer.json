@@ -1,0 +1,12 @@
+{
+    "name": "test/no-link",
+    "type": "wordpress-package",
+    "extra": {
+        "package-assets":  {
+            "paths": "./public",
+            "options": {
+                "symlink": false
+            }
+        }
+    }
+}

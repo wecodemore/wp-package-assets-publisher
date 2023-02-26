@@ -1,0 +1,72 @@
+{
+    "name": "wecodemore/wp-package-assets-publisher",
+    "description": "A Composer plugin that publishes assets for packages where WordPress can find them.",
+    "type": "composer-plugin",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giuseppe Mazzapica",
+            "email": "giuseppe.mazzapica@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://raw.githubusercontent.com/inpsyde/wp-stubs/main",
+            "only": [
+                "inpsyde/wp-stubs-versions"
+            ]
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "composer-plugin-api": "^2.3"
+    },
+    "require-dev": {
+        "composer/composer": "^2.3",
+        "inpsyde/php-coding-standards": "^1.0.0",
+        "inpsyde/wp-stubs-versions": "dev-latest",
+        "vimeo/psalm": "^5.7.5",
+        "phpunit/phpunit": "^9.6.3",
+        "mockery/mockery": "^1.5.1"
+    },
+    "autoload" : {
+        "files": [
+            "./inc/includes.php"
+        ],
+        "psr-4": {
+            "WeCodeMore\\WpPackageAssetsPublisher\\": "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4": {
+            "WeCodeMore\\WpPackageAssetsPublisher\\Tests\\": [
+                "tests/src/",
+                "tests/unit/"
+            ]
+        }
+    },
+    "extra": {
+        "class": "WeCodeMore\\WordpressPackageAssetsPublisher\\Plugin"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "cs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+        "psalm": "@php ./vendor/vimeo/psalm/psalm --no-suggestions --find-unused-psalm-suppress --no-diff --no-cache --no-file-cache",
+        "tests": "@php ./vendor/phpunit/phpunit/phpunit --testsuite=unit --no-coverage",
+        "tests:all": "@php ./vendor/phpunit/phpunit/phpunit --no-coverage",
+        "tests:int": "@php ./vendor/phpunit/phpunit/phpunit --testsuite=integration --no-coverage",
+        "tests:cov": "@php ./vendor/phpunit/phpunit/phpunit --coverage-clover coverage.xml",
+        "qa": [
+            "@cs",
+            "@psalm",
+            "@tests:all"
+        ]
+    }
+}

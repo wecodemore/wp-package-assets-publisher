@@ -1,0 +1,10 @@
+{
+    "name": "test/base",
+    "type": "wordpress-package",
+    "extra": {
+        "package-assets":  [
+            "public",
+            "images"
+        ]
+    }
+}

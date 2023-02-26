@@ -1,0 +1,12 @@
+{
+    "name": "test/strict",
+    "type": "wordpress-package",
+    "extra": {
+        "package-assets":  {
+            "paths": "./public",
+            "options": {
+                "strict": true
+            }
+        }
+    }
+}
