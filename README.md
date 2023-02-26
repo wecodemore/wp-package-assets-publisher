@@ -235,3 +235,14 @@ That is done via the package-level `extra.package-assets` property, using it as 
     }
 }
 ```
+
+# System Requirements
+
+ - PHP 7.4+
+ - [Composer](https://getcomposer.org/) >= 2.3
+
+
+# License
+
+MIT. See [LICENSE](LICENSE) file.
+
