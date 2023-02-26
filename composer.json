@@ -48,7 +48,7 @@
         }
     },
     "extra": {
-        "class": "WeCodeMore\\WordpressPackageAssetsPublisher\\Plugin"
+        "class": "WeCodeMore\\WpPackageAssetsPublisher\\Plugin"
     },
     "config": {
         "optimize-autoloader": true,
