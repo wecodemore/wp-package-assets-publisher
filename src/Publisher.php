@@ -219,7 +219,7 @@ class Publisher
 
         $name = $package->getName();
         $message = sprintf(
-            '  - Failed %s assets%s for <fg=green>%s<>: %s.',
+            '  - Failed %s assets%s for <fg=green>%s</>: %s.',
             ($operation > 0) ? 'publishing' : 'unpublishing',
             ($path === null) ? '' : sprintf(' path <fg=yellow>"%s"</>', trim($path, '/\\') . '/'),
             $name,
