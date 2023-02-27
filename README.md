@@ -31,7 +31,7 @@ Moreover, being that a WP standard path, we can use functions like `plugin_url()
 ## How it works
 
 This is a Composer plugin that provides **a custom installer for packages having 
-**`"wordpress-package"`** as type**.
+**`"wordpress-package"`** as type**. Additional types can be supported via configuration.
 
 The installer does not change how the default Composer installer installs the package, but 
 after the default installer has successfully installed the package, it looks into an 
@@ -216,6 +216,28 @@ To fail "hard", set `extra.package-assets-publisher.strict`  to `true`.
     }
 }
 ```
+
+### Custom types
+
+The installer by default only attempts to publish assets for packages with type: 
+**"wordpress-package"**. It is possible to support additional types, via configuration, like this:
+
+```json
+{
+    "extra": {
+        "package-assets-publisher": {
+            "types": [
+                "wp-library"
+            ]
+        }
+    }
+}
+```
+
+**Note**: This package is an _installer_ for custom types. By declaring support for a type we will
+override the default installer for that type, which means that **if a package type needs to use a
+custom installer, it should not be added to the supported types for this package**.
+
 
 ## Package config override
 

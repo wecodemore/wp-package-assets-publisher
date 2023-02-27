@@ -42,6 +42,11 @@ class Installer extends LibraryInstaller
     private Publisher $publisher;
 
     /**
+     * @var list<non-empty-string>
+     */
+    private array $alternativeTypes;
+
+    /**
      * @param IOInterface $io
      * @param Composer $composer
      */
@@ -52,8 +57,18 @@ class Installer extends LibraryInstaller
         $manager = $composer->getInstallationManager();
         $filesystem = new Filesystem(new ComposerFilesystem());
         $config = new Config($composer->getPackage()->getExtra(), $filesystem);
-
+        $this->alternativeTypes = $config->types();
         $this->publisher = new Publisher($manager, $io, $filesystem, $config);
+    }
+
+    /**
+     * @param string $packageType
+     * @return bool
+     */
+    public function supports(string $packageType): bool
+    {
+        return parent::supports($packageType)
+            || in_array($packageType, $this->alternativeTypes, true);
     }
 
     /**

@@ -183,4 +183,20 @@ class IntegrationTest extends IntegrationCase
         static::assertFalse(is_file("{$expectedPath}/{$notExists}"));
         static::assertTrue(is_file("{$expectedPath}/{$exists}"));
     }
+
+    /**
+     * @return void
+     */
+    public function testCustomPackage(): void
+    {
+        $package = $this->loadPackage('custom-type');
+        $publisher = $this->factoryPublisher(null, true, false, null, ['wp-library']);
+
+        $publisher->publish($package);
+
+        $expectedPath = $this->outputPath('.published-package-assets/test/custom-type');
+
+        static::assertTrue($this->io->hasOutputThatMatches('~published assets.+?public/~i'));
+        static::assertTrue(is_file("{$expectedPath}/public/main.js"));
+    }
 }

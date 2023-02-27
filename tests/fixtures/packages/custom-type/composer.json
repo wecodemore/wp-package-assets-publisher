@@ -1,0 +1,9 @@
+{
+    "name": "test/custom-type",
+    "type": "wp-library",
+    "extra": {
+        "package-assets":  [
+            "public"
+        ]
+    }
+}

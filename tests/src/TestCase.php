@@ -122,7 +122,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return Config
+     * @return Filesystem
      */
     protected function factoryFilesystem(): Filesystem
     {
@@ -145,13 +145,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param bool $strict
      * @param bool|null $symlink
      * @param string|null $targetBase
+     * @param array $types
      * @return Publisher
      */
     protected function factoryPublisher(
         ?string $dir = null,
         bool $strict = false,
         ?bool $symlink = null,
-        ?string $targetBase = null
+        ?string $targetBase = null,
+        array $types = []
     ): Publisher {
 
         $extra = [
@@ -159,6 +161,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                 'publish-dir' => ($dir ?? $this->outputPath()),
                 'strict' => $strict,
                 'symlink' => $symlink,
+                'types' => $types,
             ],
         ];
 

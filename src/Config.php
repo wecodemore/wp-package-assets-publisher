@@ -39,6 +39,7 @@ class Config
     private const KEY_OPTIONS = 'options';
     private const KEY_SYMLINK = 'symlink';
     private const KEY_STRICT = 'strict';
+    private const KEY_TYPES = 'types';
 
     private Filesystem $filesystem;
     /** @var \SplObjectStorage<PackageInterface, Package-Config> */
@@ -46,6 +47,8 @@ class Config
     private ?string $assetsPath = null;
     private ?bool $isSymlink = null;
     private bool $isStrict = false;
+    /** @var list<non-empty-string> */
+    private array $types = [];
 
     /**
      * @param array $extra
@@ -102,6 +105,14 @@ class Config
     }
 
     /**
+     * @return list<non-empty-string>
+     */
+    public function types(): array
+    {
+        return $this->types;
+    }
+
+    /**
      * @param array $extra
      * @return void
      */
@@ -125,6 +136,7 @@ class Config
             [$isStrict, $isSymlink] = $this->extractOptions($config);
             $this->isStrict = $isStrict;
             $this->isSymlink = $isSymlink;
+            $this->types = $this->extractTypes($config);
         }
     }
 
@@ -225,6 +237,32 @@ class Config
         }
 
         return [$isStrict, $isSymlink];
+    }
+
+    /**
+     * @param array $source
+     * @return list<non-empty-string>
+     */
+    private function extractTypes(array $source): array
+    {
+        $types = $source[self::KEY_TYPES] ?? null;
+        if (!is_array($types)) {
+            return [];
+        }
+        $parsed = [];
+        foreach ($types as $type) {
+            if (
+                ($type !== '')
+                && is_string($type)
+                && !in_array($type, $parsed, true)
+                && preg_match('~^[a-z0-9_-]{2,}$~i', $type)
+            ) {
+                /**  @var non-empty-string $type */
+                $parsed[] = $type;
+            }
+        }
+
+        return $parsed;
     }
 
     /**
